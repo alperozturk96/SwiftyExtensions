@@ -13,14 +13,17 @@ public extension UIApplication {
 }
 
 public extension UIApplication {
-    static var release: String {
-        return Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String? ?? "x.x"
-    }
-    
+    /// It returns app version in 1 this format
     static var build: String {
         return Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String? ?? "x"
     }
     
+    /// It returns app version in 1.2 this format
+    static var release: String {
+        return Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String? ?? "x.x"
+    }
+    
+    /// It returns app version in 1.2.3 this format
     static var version: String {
         return "\(release).\(build)"
     }
@@ -28,7 +31,7 @@ public extension UIApplication {
 
 extension UIApplication: UIGestureRecognizerDelegate {
     public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true // set to `false` if you don't want to detect tap during other gestures
+        return true
     }
 }
 

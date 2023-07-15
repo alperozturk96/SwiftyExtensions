@@ -18,22 +18,18 @@ public extension Date {
         let today = Date()
         return today > self
     }
-}
-
-public extension Date {
+    
+    var utcTimestamp: Int {
+        return Int(self.timeIntervalSince1970)
+    }
+    
     func getFormattedDate(format: DateFormats) -> String {
         return getDateFormatter(format.rawValue).string(from: self)
     }
-    
-    func getUTCTimeStamp() -> Int {
-        return Int(self.timeIntervalSince1970)
-    }
 }
 
-
-// MARK: - Date Related String Extension
 public extension String {
-    func getFormattedDate(format: DateFormats) -> Date {
-        return getDateFormatter(format.rawValue).date(from: self) ?? Date()
+    func getFormattedDate(format: DateFormats) -> Date? {
+        return getDateFormatter(format.rawValue).date(from: self)
     }
 }

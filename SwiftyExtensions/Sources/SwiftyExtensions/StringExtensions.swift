@@ -8,7 +8,7 @@ public extension [String] {
 
 // MARK: Date Related
 public extension String {
-    var ISO8601DateFormatter: DateFormatter {
+    private var ISO8601DateFormatter: DateFormatter {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
         return dateFormatter
@@ -33,7 +33,7 @@ public extension String {
 }
 
 public extension String {
-    func formatLocalized(key: String = "err_internal_storage") -> String {
+    func formatLocalized(key: String) -> String {
         return String(format: key.localized, self)
     }
     
@@ -65,7 +65,6 @@ public extension String {
     }
 }
 
-
 public extension String {
     static var ThousandSeparator: String {
         "’"
@@ -95,19 +94,8 @@ public extension String {
         "<"
     }
     
-    static var LessThanZeroPointOne: String {
-        "\(LessThan)0.01"
-    }
-}
-
-// MARK: - KeyPairExtensions
-public extension String {
-    func toData() -> Data {
-        return Data(self.utf8)
-    }
-    
-    func addRequestPrefix() -> String {
-        return "\\x".plus(self)
+    static var BiggerThan: String {
+        ">"
     }
 }
 
@@ -118,6 +106,10 @@ public extension String {
         } else {
             return String(self[index(startIndex, offsetBy: idx)])
         }
+    }
+    
+    func toData() -> Data {
+        return Data(self.utf8)
     }
     
     func toDouble() -> Double? {
@@ -160,33 +152,23 @@ public extension String {
     }
     
     /// Default character is '.'
-    func before(first delimiter: Character = ".") -> String {
+    func before(first delimiter: Character = ".") -> String? {
         if let index = firstIndex(of: delimiter) {
             let before = prefix(upTo: index)
             return String(before)
         }
-        return ""
+        return nil
     }
     
     /// Default character is '.'
-    func after(first delimiter: Character = ".") -> String {
+    func after(first delimiter: Character = ".") -> String? {
         if let index = firstIndex(of: delimiter) {
             let after = suffix(from: index).dropFirst()
             return String(after)
         }
-        return ""
+        return nil
     }
-    
-    func getShortRepresentation(prefixCount: Int = 4, suffixCount: Int = 4) -> String {
-        let firstFourElement = String(self.prefix(prefixCount))
-        let lastFourElement = String(self.suffix(suffixCount))
-        return firstFourElement + "..." + lastFourElement
-    }
-    
-    func isSeedCorrect(_ validSeed: String?) -> Bool {
-        return self == (validSeed ?? "")
-    }
-    
+
     func randomMailSuffix() -> String {
         let providers = ["test.com", "test2.com", "test3.com", "test4.com", "test5.com"]
         let randomIndex = Int.random(in: 0..<providers.count)

@@ -32,9 +32,9 @@ public extension Int {
         return Array(set)
     }
     
-    static func generateRandomPhoneNumber() -> String {
+    static func generateRandomPhoneNumber(limit: Int) -> String {
         var number = ""
-        let randomNumbers = getUniqueRandomNumbers(min: 0, max: 9, count: 10)
+        let randomNumbers = getUniqueRandomNumbers(min: 0, max: limit, count: 10)
         
         for randomNumber in randomNumbers {
             number.append(String(randomNumber))

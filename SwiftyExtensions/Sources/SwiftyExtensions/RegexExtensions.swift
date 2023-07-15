@@ -6,6 +6,7 @@ public extension String {
         return self.predict(emailRegex)
     }
     
+    /// Checks for a valid phone number after deleting spaces and parentheses
     func isPhoneNumber() -> Bool {
         let number = self.removeSpaces().removeParentheses()
         let phoneRegex = "^[0-9+]{0,1}+[0-9]{5,16}$"
